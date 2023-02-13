@@ -56,9 +56,9 @@ function showTemp(response) {
   let weatherDescription = document.querySelector("#weather-descr");
   weatherDescription.innerHTML = response.data.weather[0].main;
   let wind = document.querySelector("#wind");
-  wind.innerHTML = `${response.data.wind}`;
+  wind.innerHTML = `${wind}`;
   let humidity = document.querySelector("#humidity");
-  humidity.innerHTML = `${response.data.main.humidity}`;
+  humidity.innerHTML = `${humidity}`;
   let feelsLike = document.querySelector("#feelsLike-value");
   feelsLike.innerHTML = `${Math.round(response.data.main.feels_like)}`;
 }
