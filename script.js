@@ -95,11 +95,11 @@ function changeToCelsius(event) {
   event.preventDefault();
   celsiusButton.classList.add("active");
   fahrenheitButton.classList.remove("active");
-  let temperatureElement = document.querySelector("#temperature-value");
-  temperatureElement.innerHTML = Math.round(currentTemperature);
+  let celsiusTemperature = document.querySelector("#temperature-value");
+  celsiusTemperature.innerHTML = Math.round(cesliusTemperature);
 }
 
-let currentTemperature = `${Math.round(response.data.main.temp)}`;
+let celsiusTemperature = `${Math.round(response.data.main.temp)}`;
 
 let celsiusButton = document.querySelector("#celsius-button");
 celsiusButton.addEventListener("click", changeToCelsius);
