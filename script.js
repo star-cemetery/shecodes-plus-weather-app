@@ -59,7 +59,7 @@ function showTemp(response) {
   wind.innerHTML = `${response.data.wind}`;
   let humidity = document.querySelector("#humidity");
   humidity.innerHTML = `${response.data.main.humidity}`;
-  let feelsLike = document.querySelector("#feelsLike-value");
+  let feelsLike = document.querySelector("#feels-like-value");
   feelsLike.innerHTML = `${Math.round(response.data.main.feels_like)}`;
 }
 
@@ -85,6 +85,7 @@ function changeToFahrenheit(event) {
   celsiusButton.classList.add("active");
   fahrenheitButton.classList.remove("active");
   let fahrenheitTemperature = currentTemperature * 1.8 + 32;
+  let temperatureElement = document.querySelector("#temperature-value");
   temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
 }
 
@@ -96,10 +97,9 @@ function changeToCelsius(event) {
   celsiusButton.classList.add("active");
   fahrenheitButton.classList.remove("active");
   let celsiusTemperature = document.querySelector("#temperature-value");
-  celsiusTemperature.innerHTML = Math.round(cesliusTemperature);
+  celsiusTemperature.innerHTML = Math.round(currentTemperature);
 }
 
-let celsiusTemperature = `${Math.round(response.data.main.temp)}`;
-
+let currentTemperature = null;
 let celsiusButton = document.querySelector("#celsius-button");
 celsiusButton.addEventListener("click", changeToCelsius);
