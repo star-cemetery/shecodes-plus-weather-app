@@ -28,14 +28,19 @@ dayNow.innerHTML = currentDay;
 let timeNow = document.querySelector("h4");
 timeNow.innerHTML = currentTime;
 
-function showCity(event) {
-  event.preventDefault();
-  let h1 = document.querySelector("#city-name");
-  let cityInput = document.querySelector("#cityname-input");
-  if (cityInput.value) {
-    h1.innerHTML = `${cityInput.value}`;
-    searchCity(cityInput.value);
-  }
+function showTemp(response) {
+  let temperature = document.querySelector("#temperature-value");
+  temperature.innerHTML = `${Math.round(response.data.main.temp)}`;
+  let cityName = document.querySelector("#city-name");
+  cityName.innerHTML = response.data.name;
+  let weatherDescription = document.querySelector("#weather-descr");
+  weatherDescription.innerHTML = response.data.weather[0].description;
+  let wind = document.querySelector("#wind-value");
+  wind.innerHTML = `${response.data.wind.speed * 3.6} m/sec`;
+  let humidity = document.querySelector("#humidity-value");
+  humidity.innerHTML = `${response.data.main.humidity}%`;
+  let feelsLike = document.querySelector("#feels-like-value");
+  feelsLike.innerHTML = `${Math.round(response.data.main.feels_like)}`;
 }
 function searchCity(city) {
   let apiKey = "236afc988cb00486bd73ff9950b47b26";
@@ -44,23 +49,15 @@ function searchCity(city) {
 
   axios.get(apiUrl).then(showTemp);
 }
-let form = document.querySelector("form");
-form.addEventListener("submit", showCity);
 
-function showTemp(response) {
-  console.log(response.data.main);
-  let temperature = document.querySelector("#temperature-value");
-  temperature.innerHTML = `${Math.round(response.data.main.temp)}`;
-  let cityName = document.querySelector("#city-name");
-  cityName.innerHTML = response.data.name;
-  let weatherDescription = document.querySelector("#weather-descr");
-  weatherDescription.innerHTML = response.data.weather[0].main;
-  let wind = document.querySelector("#wind");
-  wind.innerHTML = `${response.data.wind}`;
-  let humidity = document.querySelector("#humidity");
-  humidity.innerHTML = `${response.data.main.humidity}`;
-  let feelsLike = document.querySelector("#feels-like-value");
-  feelsLike.innerHTML = `${Math.round(response.data.main.feels_like)}`;
+function showCity(event) {
+  event.preventDefault();
+  let h1 = document.querySelector("#city-name");
+  let cityInput = document.querySelector("#cityname-input");
+  if (cityInput.value) {
+    h1.innerHTML = `${cityInput.value}`;
+    searchCity(cityInput.value);
+  }
 }
 
 function searchLocation(position) {
@@ -84,22 +81,27 @@ function changeToFahrenheit(event) {
   event.preventDefault();
   celsiusButton.classList.add("active");
   fahrenheitButton.classList.remove("active");
-  let fahrenheitTemperature = currentTemperature * 1.8 + 32;
-  let temperatureElement = document.querySelector("#temperature-value");
-  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+  temperatureValue.innerHTML = Math.round(fahrenheitTemperature);
 }
-
-let fahrenheitButton = document.querySelector("#fahrenheit-button");
-fahrenheitButton.addEventListener("click", changeToFahrenheit);
 
 function changeToCelsius(event) {
   event.preventDefault();
   celsiusButton.classList.add("active");
   fahrenheitButton.classList.remove("active");
-  let celsiusTemperature = document.querySelector("#temperature-value");
-  celsiusTemperature.innerHTML = Math.round(currentTemperature);
+  let temperatureValue = document.querySelector("#temperature-value");
+  temperatureValue.innerHTML = Math.round(celsiusTemperature);
 }
 
-let currentTemperature = null;
+let celsiusTemperature = null;
+
+let form = document.querySelector("form");
+form.addEventListener("submit", showCity);
+
+let fahrenheitButton = document.querySelector("#fahrenheit-button");
+fahrenheitButton.addEventListener("click", changeToFahrenheit);
+
 let celsiusButton = document.querySelector("#celsius-button");
 celsiusButton.addEventListener("click", changeToCelsius);
+
+search("New York");
