@@ -36,12 +36,19 @@ function showTemp(response) {
   let weatherDescription = document.querySelector("#weather-descr");
   weatherDescription.innerHTML = response.data.weather[0].description;
   let wind = document.querySelector("#wind-value");
-  wind.innerHTML = `${response.data.wind.speed * 3.6} m/sec`;
+  wind.innerHTML = `${response.data.wind.speed * 3.6} km/h`;
   let humidity = document.querySelector("#humidity-value");
   humidity.innerHTML = `${response.data.main.humidity}%`;
   let feelsLike = document.querySelector("#feels-like-value");
   feelsLike.innerHTML = `${Math.round(response.data.main.feels_like)}`;
+  let icon = document.querySelector("#icon");
+  icon.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  icon.setAttribute("alt", response.data.weather[0].description);
 }
+
 function searchCity(city) {
   let apiKey = "236afc988cb00486bd73ff9950b47b26";
   let units = "metric";
