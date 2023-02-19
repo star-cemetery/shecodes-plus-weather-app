@@ -29,30 +29,30 @@ let timeNow = document.querySelector("h4");
 timeNow.innerHTML = currentTime;
 
 function showTemp(response) {
+  console.log(response);
   let temperature = document.querySelector("#temperature-value");
-  temperature.innerHTML = `${Math.round(response.data.main.temp)}`;
+  temperature.innerHTML = `${Math.round(response.data.temperature.current)}`;
   let cityName = document.querySelector("#city-name");
-  cityName.innerHTML = response.data.name;
+  cityName.innerHTML = response.data.city;
   let weatherDescription = document.querySelector("#weather-descr");
-  weatherDescription.innerHTML = response.data.weather[0].description;
+  weatherDescription.innerHTML = response.data.condition.description;
   let wind = document.querySelector("#wind-value");
-  wind.innerHTML = `${Math.round(response.data.wind.speed * 3.6)} km/h`;
+  wind.innerHTML = `${Math.round(response.data.wind.speed)} km/h`;
   let humidity = document.querySelector("#humidity-value");
-  humidity.innerHTML = `${response.data.main.humidity}%`;
+  humidity.innerHTML = `${response.data.temperature.humidity}%`;
   let feelsLike = document.querySelector("#feels-like-value");
-  feelsLike.innerHTML = `${Math.round(response.data.main.feels_like)}`;
+  feelsLike.innerHTML = `${Math.round(response.data.temperature.feels_like)}`;
   let icon = document.querySelector("#icon");
   icon.setAttribute(
     "src",
-    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+    `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
   );
-  icon.setAttribute("alt", response.data.weather[0].description);
+  icon.setAttribute("alt", response.data.condition.description);
 }
 
 function searchCity(city) {
-  let apiKey = "236afc988cb00486bd73ff9950b47b26";
-  let units = "metric";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
+  let apiKey = "3ef72t8co306b30ebbc9c4af95efb4e4";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
 
   axios.get(apiUrl).then(showTemp);
 }
@@ -63,16 +63,18 @@ function showCity(event) {
   let cityInput = document.querySelector("#cityname-input");
   if (cityInput.value) {
     h1.innerHTML = `${cityInput.value}`;
-    searchCity(cityInput.value);
+  } else {
+    alert("Nowhere has no data about it...");
   }
+  searchCity(cityInput.value);
 }
 
 function searchLocation(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
-  let apiKey = "236afc988cb00486bd73ff9950b47b26";
+  let apiKey = "3ef72t8co306b30ebbc9c4af95efb4e4";
   let units = "metric";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${apiKey}&units=${units}`;
 
   axios.get(apiUrl).then(showTemp);
 }
@@ -86,29 +88,29 @@ currentLocationButton.addEventListener("click", getPosition);
 
 function changeToFahrenheit(event) {
   event.preventDefault();
-  celsiusButton.classList.add("active");
-  fahrenheitButton.classList.remove("active");
-  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
-  temperatureValue.innerHTML = Math.round(fahrenheitTemperature);
+  celsiusButton.classList.remove("active");
+  fahrenheitButton.classList.add("active");
+  let fahrenheitTemperature = currentTemperature * 1.8 + 32;
+  let temperatureElement = document.querySelector("#temperature-value");
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
 }
+
+let fahrenheitButton = document.querySelector("#fahrenheit-button");
+fahrenheitButton.addEventListener("click", changeToFahrenheit);
 
 function changeToCelsius(event) {
   event.preventDefault();
   celsiusButton.classList.add("active");
   fahrenheitButton.classList.remove("active");
-  let temperatureValue = document.querySelector("#temperature-value");
-  temperatureValue.innerHTML = Math.round(celsiusTemperature);
+  let temperatureElement = document.querySelector("#temperature-value");
+  temperatureElement.innerHTML = Math.round(currentTemperature);
 }
 
-let celsiusTemperature = null;
-
-let form = document.querySelector("form");
-form.addEventListener("submit", showCity);
-
-let fahrenheitButton = document.querySelector("#fahrenheit-button");
-fahrenheitButton.addEventListener("click", changeToFahrenheit);
+let currentTemperature = null;
 
 let celsiusButton = document.querySelector("#celsius-button");
 celsiusButton.addEventListener("click", changeToCelsius);
 
-search("New York");
+let temperatureValue = document.querySelector("#temperature-value");
+
+searchCity(cityInput.value);
