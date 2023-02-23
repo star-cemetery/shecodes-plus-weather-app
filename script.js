@@ -113,4 +113,4 @@ celsiusButton.addEventListener("click", changeToCelsius);
 
 let temperatureValue = document.querySelector("#temperature-value");
 
-searchCity("Reykjavik");
+searchCity(cityInput.value);
