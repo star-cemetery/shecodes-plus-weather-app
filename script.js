@@ -91,19 +91,19 @@ function changeToFahrenheit(event) {
   let temperatureElement = document.querySelector("#temperature-value");
   fahrenheitButton.classList.add("active");
   celsiusButton.classList.remove("active");
-  let fahrenheitTemperature = currentTemperature * 1.8 + 32;
+  let fahrenheitTemperature = celsiusTemperature * 1.8 + 32;
   temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
 }
 
 function changeToCelsius(event) {
   event.preventDefault();
-  let temperatureElement = document.querySelector("#temperature-value");
   celsiusButton.classList.add("active");
   fahrenheitButton.classList.remove("active");
-  temperatureElement.innerHTML = Math.round(currentTemperature);
+  let temperatureElement = document.querySelector("#temperature-value");
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
 
-let currentTemperature = null;
+let celsiusTemperature = null;
 
 let fahrenheitButton = document.querySelector("#fahrenheit-button");
 fahrenheitButton.addEventListener("click", changeToFahrenheit);
@@ -111,6 +111,5 @@ fahrenheitButton.addEventListener("click", changeToFahrenheit);
 let celsiusButton = document.querySelector("#celsius-button");
 celsiusButton.addEventListener("click", changeToCelsius);
 
-let temperatureValue = document.querySelector("#temperature-value");
-
-searchCity(cityInput.value);
+searchCity("Kyiv");
+showTemp();

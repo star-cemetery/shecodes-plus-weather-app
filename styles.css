@@ -18,8 +18,9 @@ body {
   text-decoration: none;
   color: black;
 }
-a,
-a :hover {
-  text-decoration: none;
-  color: rgb(250, 249, 249);
+.current-weather-data {
+  text-align: left;
+}
+.weather-forecast {
+  text-align: center;
 }
