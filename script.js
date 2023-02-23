@@ -29,7 +29,7 @@ let timeNow = document.querySelector("h4");
 timeNow.innerHTML = currentTime;
 
 function showTemp(response) {
-  console.log(response);
+  console.log(response.data);
   let temperature = document.querySelector("#temperature-value");
   temperature.innerHTML = `${Math.round(response.data.temperature.current)}`;
   let cityName = document.querySelector("#city-name");
@@ -88,25 +88,25 @@ currentLocationButton.addEventListener("click", getPosition);
 
 function changeToFahrenheit(event) {
   event.preventDefault();
-  celsiusButton.classList.remove("active");
-  fahrenheitButton.classList.add("active");
-  let fahrenheitTemperature = currentTemperature * 1.8 + 32;
   let temperatureElement = document.querySelector("#temperature-value");
+  fahrenheitButton.classList.add("active");
+  celsiusButton.classList.remove("active");
+  let fahrenheitTemperature = currentTemperature * 1.8 + 32;
   temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
 }
 
-let fahrenheitButton = document.querySelector("#fahrenheit-button");
-fahrenheitButton.addEventListener("click", changeToFahrenheit);
-
 function changeToCelsius(event) {
   event.preventDefault();
+  let temperatureElement = document.querySelector("#temperature-value");
   celsiusButton.classList.add("active");
   fahrenheitButton.classList.remove("active");
-  let temperatureElement = document.querySelector("#temperature-value");
   temperatureElement.innerHTML = Math.round(currentTemperature);
 }
 
 let currentTemperature = null;
+
+let fahrenheitButton = document.querySelector("#fahrenheit-button");
+fahrenheitButton.addEventListener("click", changeToFahrenheit);
 
 let celsiusButton = document.querySelector("#celsius-button");
 celsiusButton.addEventListener("click", changeToCelsius);
