@@ -103,13 +103,16 @@ function changeToCelsius(event) {
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
 
-let celsiusTemperature = null;
+let celsiusTemperature = response.data.temperature.current;
 
 let fahrenheitButton = document.querySelector("#fahrenheit-button");
 fahrenheitButton.addEventListener("click", changeToFahrenheit);
 
 let celsiusButton = document.querySelector("#celsius-button");
 celsiusButton.addEventListener("click", changeToCelsius);
+
+let form = document.querySelector("form");
+form.addEventListener("submit", showCity);
 
 searchCity("Kyiv");
 showTemp();
