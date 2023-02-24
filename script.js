@@ -32,6 +32,7 @@ function showTemp(response) {
   console.log(response.data);
   let temperature = document.querySelector("#temperature-value");
   temperature.innerHTML = `${Math.round(response.data.temperature.current)}`;
+  let celsiusTemperature = response.data.temperature.current;
   let cityName = document.querySelector("#city-name");
   cityName.innerHTML = response.data.city;
   let weatherDescription = document.querySelector("#weather-descr");
@@ -103,7 +104,7 @@ function changeToCelsius(event) {
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
 
-let celsiusTemperature = response.data.temperature.current;
+let celsiusTemperature = null;
 
 let fahrenheitButton = document.querySelector("#fahrenheit-button");
 fahrenheitButton.addEventListener("click", changeToFahrenheit);
@@ -114,5 +115,5 @@ celsiusButton.addEventListener("click", changeToCelsius);
 let form = document.querySelector("form");
 form.addEventListener("submit", showCity);
 
-searchCity("Kyiv");
+searchCity();
 showTemp();
