@@ -32,7 +32,7 @@ function showTemp(response) {
   console.log(response.data);
   let temperature = document.querySelector("#temperature-value");
   temperature.innerHTML = `${Math.round(response.data.temperature.current)}`;
-  let celsiusTemperature = response.data.temperature.current;
+  celsiusTemperature = response.data.temperature.current;
   let cityName = document.querySelector("#city-name");
   cityName.innerHTML = response.data.city;
   let weatherDescription = document.querySelector("#weather-descr");
@@ -92,7 +92,7 @@ function changeToFahrenheit(event) {
   let temperatureElement = document.querySelector("#temperature-value");
   fahrenheitButton.classList.add("active");
   celsiusButton.classList.remove("active");
-  let fahrenheitTemperature = celsiusTemperature * 1.8 + 32;
+  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
   temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
 }
 
