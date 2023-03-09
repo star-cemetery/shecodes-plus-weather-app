@@ -28,6 +28,29 @@ dayNow.innerHTML = currentDay;
 let timeNow = document.querySelector("h4");
 timeNow.innerHTML = currentTime;
 
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+
+  let forecastHTML = `<div class="row">`;
+  let days = ["Day2", "Day3", "Day4", "Day5", "Day6"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+    <div class="col-2">
+          <h2>${day}</h2>
+          <br />
+          <img src id="icon" width="80" />
+          <br />
+          <span id="temp-value">7 °C</span>
+        </div>
+  `;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
 function showTemp(response) {
   console.log(response.data);
   let temperature = document.querySelector("#temperature-value");
@@ -117,3 +140,4 @@ form.addEventListener("submit", showCity);
 
 searchCity();
 showTemp();
+displayForecast();
