@@ -31,58 +31,7 @@ timeNow.innerHTML = currentTime;
 function displayForecast(response) {
   console.log(response.data.daily);
   let forecastElement = document.querySelector("#forecast");
-
-  let forecastHTML = `<div class="row">`;
-  let days = ["Day2", "Day3", "Day4", "Day5", "Day6"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
-    <div class="col-2">
-          <h2>${day}</h2>
-          <br />
-          <img src id="icon" width="80" />
-          <br />
-          <span id="temp-value">7 °C</span>
-        </div>
-  `;
-    forecastHTML =
-      forecastHTML +
-      `
-    <div class="col-2">
-          <h2>${day}</h2>
-          <br />
-          <img src id="icon" width="80" />
-          <br />
-          <span id="temp-value">7 °C</span>
-        </div>
-  `;
-    forecastHTML =
-      forecastHTML +
-      `
-    <div class="col-2">
-          <h2>${day}</h2>
-          <br />
-          <img src id="icon" width="80" />
-          <br />
-          <span id="temp-value">7 °C</span>
-        </div>
-  `;
-    forecastHTML =
-      forecastHTML +
-      `
-    <div class="col-2">
-          <h2>${day}</h2>
-          <br />
-          <img src id="icon" width="80" />
-          <br />
-          <span id="temp-value">7 °C</span>
-        </div>
-  `;
-  });
-
-  forecastHTML = forecastHTML + `</div>`;
-  forecastElement.innerHTML = forecastHTML;
+  forecastElement.innerHTML = "Get lost";
 }
 
 function getForecast(coordinates) {
