@@ -29,16 +29,33 @@ let timeNow = document.querySelector("h4");
 timeNow.innerHTML = currentTime;
 
 function displayForecast(response) {
-  console.log(response.data.daily);
+  console.log(response);
   let forecastElement = document.querySelector("#forecast");
-  forecastElement.innerHTML = "Get lost";
+  let forecastHTML = `<div class="row">`;
+  let days = ["Mon", "Tue", "Wed", "Thu"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+  <div class="col-2">
+          <h2>${days}</h2>
+          <br />
+          <img src id="icon" width="80" />
+          <br />
+          <span id="temp-value">7 °C</span>
+        </div>
+`;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
 }
 
 function getForecast(coordinates) {
-  console.log(apiURL);
+  console.log(coordinates);
   let apiKey = "3ef72t8co306b30ebbc9c4af95efb4e4";
-  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.lon}&lat=${coordinates.lat}&key=${apiKey}&units=metric`;
-  axios.get(apiURL).then(displayForecast);
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
 }
 
 function showTemp(response) {
@@ -62,6 +79,7 @@ function showTemp(response) {
     `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
   );
   icon.setAttribute("alt", response.data.condition.description);
+  getForecast(response.data.coordinates);
 }
 
 function searchCity(city) {
@@ -128,5 +146,5 @@ celsiusButton.addEventListener("click", changeToCelsius);
 let form = document.querySelector("form");
 form.addEventListener("submit", showCity);
 
-searchCity();
-showTemp();
+searchCity("Reykjavik");
+displayForecast();
