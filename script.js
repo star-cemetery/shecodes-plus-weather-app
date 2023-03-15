@@ -29,7 +29,6 @@ let timeNow = document.querySelector("h4");
 timeNow.innerHTML = currentTime;
 
 function displayForecast(response) {
-  console.log(response);
   let forecastElement = document.querySelector("#forecast");
   let forecastHTML = `<div class="row">`;
   let days = ["Mon", "Tue", "Wed", "Thu"];
@@ -56,10 +55,13 @@ function getForecast(coordinates) {
   let apiKey = "3ef72t8co306b30ebbc9c4af95efb4e4";
   let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayForecast);
+  console.log(apiUrl);
+}
+function displayForecast(response) {
+  console.log(response.data.daily[0].condition);
 }
 
 function showTemp(response) {
-  console.log(response.data);
   let temperature = document.querySelector("#temperature-value");
   temperature.innerHTML = `${Math.round(response.data.temperature.current)}`;
   celsiusTemperature = response.data.temperature.current;
@@ -80,6 +82,8 @@ function showTemp(response) {
   );
   icon.setAttribute("alt", response.data.condition.description);
   getForecast(response.data.coordinates);
+
+  showForecast(response.data.coordinates);
 }
 
 function searchCity(city) {
