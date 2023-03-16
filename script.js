@@ -36,25 +36,28 @@ function getForecast(coordinates) {
 }
 
 function displayForecast(response) {
-  console.log(response.data.daily[0].time);
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector(".weather-forecast");
   let forecastHTML = `<div class="row">`;
-  let forecastDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  forecastDays.forEach(function (forecastDay) {
+
+  forecast.forEach(function (forecastDay) {
     forecastHTML =
       forecastHTML +
       `<div class="col-2">
-          <h2>Anyday</h2>
+          <h2>${forecastDay.time}</h2>
           <br />
-          <img src id="icon" width="80" />
+          <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${
+            forecastDay.condition.icon
+          }.png" alt="" id="icon" width="80"} />
           <br />
-          <span id="temp-value">7 °C</span>
+          <span id="temp-value">${Math.round(
+            forecastDay.temperature.day
+          )} °C</span>
           </div>`;
   });
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
 }
-
 function showTemp(response) {
   let temperature = document.querySelector("#temperature-value");
   temperature.innerHTML = `${Math.round(response.data.temperature.current)}`;
