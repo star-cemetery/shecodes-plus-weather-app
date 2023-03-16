@@ -28,32 +28,31 @@ dayNow.innerHTML = currentDay;
 let timeNow = document.querySelector("h4");
 timeNow.innerHTML = currentTime;
 
-let forecastElement = document.querySelector(".weather-forecast");
-let forecastHTML = `<div class="row">`;
-let forecastDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-forecastDays.forEach(function (forecastDay) {
-  forecastHTML =
-    forecastHTML +
-    `<div class="col-2">
-          <h2>${forecastDay}</h2>
-          <br />
-          <img src id="icon" width="80" />
-          <br />
-          <span id="temp-value">7 °C</span>
-        </div>`;
-});
-forecastHTML = forecastHTML + `</div>`;
-forecastElement.innerHTML = forecastHTML;
-
 function getForecast(coordinates) {
-  console.log(coordinates);
   let apiKey = "3ef72t8co306b30ebbc9c4af95efb4e4";
   let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayForecast);
   console.log(apiUrl);
 }
+
 function displayForecast(response) {
-  console.log(response.data.daily[0].condition);
+  console.log(response.data.daily[0].time);
+  let forecastElement = document.querySelector(".weather-forecast");
+  let forecastHTML = `<div class="row">`;
+  let forecastDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  forecastDays.forEach(function (forecastDay) {
+    forecastHTML =
+      forecastHTML +
+      `<div class="col-2">
+          <h2>Anyday</h2>
+          <br />
+          <img src id="icon" width="80" />
+          <br />
+          <span id="temp-value">7 °C</span>
+          </div>`;
+  });
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
 }
 
 function showTemp(response) {
@@ -146,3 +145,4 @@ let form = document.querySelector("form");
 form.addEventListener("submit", showCity);
 
 searchCity("Reykjavik");
+displayForecast();
