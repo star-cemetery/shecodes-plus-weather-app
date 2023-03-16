@@ -28,27 +28,22 @@ dayNow.innerHTML = currentDay;
 let timeNow = document.querySelector("h4");
 timeNow.innerHTML = currentTime;
 
-function displayForecast(response) {
-  let forecastElement = document.querySelector("#forecast");
-  let forecastHTML = `<div class="row">`;
-  let days = ["Mon", "Tue", "Wed", "Thu"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
-  <div class="col-2">
-          <h2>${days}</h2>
+let forecastElement = document.querySelector(".weather-forecast");
+let forecastHTML = `<div class="row">`;
+let forecastDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+forecastDays.forEach(function (forecastDay) {
+  forecastHTML =
+    forecastHTML +
+    `<div class="col-2">
+          <h2>${forecastDay}</h2>
           <br />
           <img src id="icon" width="80" />
           <br />
           <span id="temp-value">7 °C</span>
-        </div>
-`;
-  });
-
-  forecastHTML = forecastHTML + `</div>`;
-  forecastElement.innerHTML = forecastHTML;
-}
+        </div>`;
+});
+forecastHTML = forecastHTML + `</div>`;
+forecastElement.innerHTML = forecastHTML;
 
 function getForecast(coordinates) {
   console.log(coordinates);
@@ -151,4 +146,3 @@ let form = document.querySelector("form");
 form.addEventListener("submit", showCity);
 
 searchCity("Reykjavik");
-displayForecast();
