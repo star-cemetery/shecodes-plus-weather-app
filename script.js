@@ -35,17 +35,33 @@ function getForecast(coordinates) {
   console.log(apiUrl);
 }
 
+function formatDay(displayedDays) {
+  let date = new Date(displayedDays * 1000);
+  let day = getDay();
+  let days = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
+  return days[day];
+}
+
 function displayForecast(response) {
   let forecast = response.data.daily;
   let forecastElement = document.querySelector(".weather-forecast");
   let forecastHTML = `<div class="row">`;
 
-  forecast.forEach(function (forecastDay) {
+  forecast.forEach(function (forecastDay, index) {
     forecastHTML =
       forecastHTML +
       `<div class="col-2">
-          <h2>${forecastDay.time}</h2>
+          <h2>${formatDay(forecastDay.time)}</h2>
           <br />
+          ${index}
           <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${
             forecastDay.condition.icon
           }.png" alt="" id="icon" width="80"} />
@@ -80,7 +96,7 @@ function showTemp(response) {
   icon.setAttribute("alt", response.data.condition.description);
   getForecast(response.data.coordinates);
 
-  showForecast(response.data.coordinates);
+  displayForecast(response.data.coordinates);
 }
 
 function searchCity(city) {
