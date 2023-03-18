@@ -60,7 +60,6 @@ function displayForecast(response) {
         `<div class="col-2">
           <h2>${formatDay(forecastDay.time)}</h2>
           <br />
-          ${index}
           <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${
             forecastDay.condition.icon
           }.png" alt="" id="icon" width="80"} />
@@ -125,6 +124,7 @@ function searchLocation(position) {
 
   axios.get(apiUrl).then(showTemp);
 }
+
 function getPosition(event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition(searchLocation);
