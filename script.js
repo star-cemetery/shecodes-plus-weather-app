@@ -36,7 +36,7 @@ function getForecast(coordinates) {
 
 function formatDay(displayedDays) {
   let date = new Date(displayedDays * 1000);
-  let day = getDay();
+  let day = date.getDay();
   let days = [
     "Monday",
     "Tuesday",
